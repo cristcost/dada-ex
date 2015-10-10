@@ -24,14 +24,13 @@ public class CsvDailyReport {
   private String formatCsv(ReportEntry reportEntry) {
     StringBuilder sb = new StringBuilder();
     sb.append(reportEntry.getHostAddress());
-    sb.append(",");
+    sb.append(";");
     sb.append(reportEntry.getRequests());
-    sb.append(",");
-    // CSV with comma separation is English locale
-    sb.append(String.format(Locale.ENGLISH, "%.2f%%", reportEntry.getRequestsPercentage()));
-    sb.append(",");
+    sb.append(";");
+    sb.append(String.format(Locale.ITALIAN, "%.2f%%", reportEntry.getRequestsPercentage()));
+    sb.append(";");
     sb.append(reportEntry.getBytes());
-    sb.append(",");
+    sb.append(";");
     sb.append(String.format("%.2f%%", reportEntry.getBytesPercentage()));
     return sb.toString();
   }
