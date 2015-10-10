@@ -1,6 +1,8 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.dada.dailyreport;
 
-import net.cristcost.data.dailyreport.DailyReport.ReportEntry;
+import net.cristcost.dada.dailyreport.DailyReport;
+import net.cristcost.dada.dailyreport.Request;
+import net.cristcost.dada.dailyreport.DailyReport.ReportEntry;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;

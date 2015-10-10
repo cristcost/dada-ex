@@ -1,6 +1,7 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.dada.dailyreport;
 
-import net.cristcost.data.dailyreport.utils.TestLogsGenerator;
+import net.cristcost.dada.dailyreport.LogParser;
+import net.cristcost.dada.dailyreport.utils.TestLogsGenerator;
 
 import org.junit.Before;
 import org.junit.Test;

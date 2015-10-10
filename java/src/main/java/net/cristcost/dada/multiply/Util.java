@@ -1,4 +1,4 @@
-package net.cristcost.data.multiply;
+package net.cristcost.dada.multiply;
 
 public class Util {
 

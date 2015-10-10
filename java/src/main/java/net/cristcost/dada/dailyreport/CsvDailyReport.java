@@ -1,6 +1,6 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.dada.dailyreport;
 
-import net.cristcost.data.dailyreport.DailyReport.ReportEntry;
+import net.cristcost.dada.dailyreport.DailyReport.ReportEntry;
 
 import java.io.PrintStream;
 import java.util.List;

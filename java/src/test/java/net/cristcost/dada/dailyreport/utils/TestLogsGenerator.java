@@ -1,6 +1,6 @@
-package net.cristcost.data.dailyreport.utils;
+package net.cristcost.dada.dailyreport.utils;
 
-import net.cristcost.data.dailyreport.LogParser;
+import net.cristcost.dada.dailyreport.LogParser;
 
 import java.io.PrintStream;
 import java.text.DateFormat;

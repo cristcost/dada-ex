@@ -1,4 +1,4 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.dada.dailyreport;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

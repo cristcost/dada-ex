@@ -1,4 +1,4 @@
-package net.cristcost.data.dailyreport.utils;
+package net.cristcost.dada.dailyreport.utils;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;

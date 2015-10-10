@@ -1,4 +1,6 @@
-package net.cristcost.data.multiply;
+package net.cristcost.dada.multiply;
+
+import net.cristcost.dada.multiply.Util;
 
 import org.junit.Test;
 

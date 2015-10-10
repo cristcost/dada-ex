@@ -13,9 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package net.cristcost.data.dailyreport;
+package net.cristcost.dada.dailyreport;
 
-import net.cristcost.data.dailyreport.DailyReport.ReportEntry;
+import net.cristcost.dada.dailyreport.DailyReport.ReportEntry;
 
 import java.io.File;
 import java.io.FileNotFoundException;

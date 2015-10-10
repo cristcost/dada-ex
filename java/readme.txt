@@ -1,6 +1,6 @@
 Generator of test input can be lauched with maven:
 
-mvn -q exec:java -Dexec.mainClass=net.cristcost.data.dailyreport.utils.GeneratorLauncher -Dexec.classpathScope=test -Dexec.args='<options>'
+mvn -q exec:java -Dexec.mainClass=net.cristcost.dada.dailyreport.utils.GeneratorLauncher -Dexec.classpathScope=test -Dexec.args='<options>'
 
 With no argument, usage is printed.
 
