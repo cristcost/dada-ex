@@ -1,23 +1,45 @@
 package net.cristcost.data.dailyreport;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class DailyReport {
 
-  public class RequestEntry {
+  public class ReportEntry {
 
-    private int requests = 0;
-    private int bytes = 0;
+    private final String hostAddress;
+    int requests = 0;
+    int bytes = 0;
 
-    public RequestEntry(int bytes, int requests) {
+    public ReportEntry(String hostAddress, int bytes, int requests) {
+      this.hostAddress = hostAddress;
       this.requests = requests;
       this.bytes = bytes;
+    }
+
+    public int getBytes() {
+      return bytes;
+    }
+
+    public double getBytesPercentage() {
+      return bytes * 100.0 / DailyReport.this.totalBytes;
+    }
+
+    public String getHostAddress() {
+      return hostAddress;
+    }
+
+    public int getRequests() {
+      return requests;
+    }
+
+    public double getRequestsPercentage() {
+      return requests * 100.0 / DailyReport.this.totalRequests;
     }
 
     public void logRequest(int newBytes) {
@@ -26,66 +48,41 @@ public class DailyReport {
     }
   }
 
-  private Map<String, RequestEntry> entries = new HashMap<>();
+  private Map<String, ReportEntry> entriesByIp = new HashMap<>();
 
   public int totalRequests = 0;
   public int totalBytes = 0;
 
-  public void parse(String fileName) throws IOException {
-    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-      String line;
-      while ((line = br.readLine()) != null) {
-        parseLine(line);
+  public List<ReportEntry> getEntries() {
+
+    List<ReportEntry> ret = new ArrayList<>(entriesByIp.values());
+    Comparator<ReportEntry> c = new Comparator<DailyReport.ReportEntry>() {
+
+      @Override
+      public int compare(ReportEntry o2, ReportEntry o1) {
+        return (o1.requests < o2.requests) ? -1 : ((o1.requests == o2.requests) ? 0 : 1);
+      }
+    };
+    Collections.<ReportEntry> sort(ret, c);
+    return ret;
+  }
+
+  public void logAll(Collection<Request> requests) {
+    for (Request request : requests) {
+      if (request.getStatusCode().equals("200 OK")) {
+        logRequest(request.getHost(), request.getBytes());
       }
     }
   }
 
-  public void print(PrintStream out) {
-    printHeader(out);
-    for (Entry<String, RequestEntry> entry : entries.entrySet()) {
-
-      int requests = entry.getValue().requests;
-      int bytes = entry.getValue().bytes;
-
-      StringBuilder sb = new StringBuilder();
-      sb.append(entry.getKey());
-      sb.append(",");
-      sb.append(requests);
-      sb.append(",");
-      sb.append(requests * 100.0 / totalRequests);
-      sb.append(",");
-      sb.append(bytes);
-      sb.append(",");
-      sb.append(bytes * 100.0 / totalBytes);
-
-      out.println(sb.toString());
-    }
-  }
-
-  private void printHeader(PrintStream out) {
-    System.out.println("IP Address,Number of Requests,Percentage,Total Bytes, Percentage");
-  }
-
   private void logRequest(String remoteAddress, int bytes) {
-    if (entries.containsKey(remoteAddress)) {
-      entries.get(remoteAddress).logRequest(bytes);
+    if (entriesByIp.containsKey(remoteAddress)) {
+      entriesByIp.get(remoteAddress).logRequest(bytes);
     } else {
-      entries.put(remoteAddress, new RequestEntry(bytes, 1));
+      entriesByIp.put(remoteAddress, new ReportEntry(remoteAddress, bytes, 1));
     }
+    totalBytes += bytes;
+    totalRequests++;
   }
 
-  private void parseLine(String line) {
-    String[] split = line.split(";");
-    parseLine(split[0], split[1], split[2], split[3]);
-  }
-
-  private void parseLine(String timestamp, String bytesAsString, String status,
-      String remoteAddress) {
-    if (status.equals("200 OK")) {
-      int bytes = Integer.parseInt(bytesAsString);
-      totalBytes += bytes;
-      totalRequests++;
-      logRequest(remoteAddress, bytes);
-    }
-  }
 }

@@ -15,9 +15,29 @@
  */
 package net.cristcost.data.dailyreport;
 
+import net.cristcost.data.dailyreport.DailyReport.ReportEntry;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.List;
+
 public class DailyReportApp {
 
-  public static void main(String[] args) {
-    System.out.println("Sandbox project for DailyReport exercise");
+  public static void main(String[] args) throws FileNotFoundException, IOException {
+
+    // String fileName = args[0];
+    String fileName = "target/requests.log";
+
+    LogParser parser = new LogParser(fileName);
+    parser.parse();
+
+    DailyReport report = new DailyReport();
+    report.logAll(parser.getRequests());
+
+    List<ReportEntry> entries = report.getEntries();
+
+    CsvDailyReport csv = new CsvDailyReport(System.out);
+    csv.addEntries(entries);
+    csv.close();
   }
 }

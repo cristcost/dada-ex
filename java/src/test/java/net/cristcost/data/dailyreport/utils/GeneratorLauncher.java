@@ -13,6 +13,23 @@ import java.io.PrintStream;
 
 public class GeneratorLauncher {
 
+  public static void main(String[] args) throws FileNotFoundException {
+
+    GeneratorLauncher options = GeneratorLauncher.parseCommandLine(args);
+
+    TestLogsGenerator generator = new TestLogsGenerator(System.currentTimeMillis(),
+        options.averageRequestInterval, options.averageBytes, options.rateOf200Ok,
+        options.numberOfRemoteHosts);
+
+    if (options.fileName != null) {
+      File file = new File(options.fileName);
+      PrintStream filePrinter = new PrintStream(file);
+      generator.generate(options.requests, filePrinter);
+    } else {
+      generator.generate(options.requests, System.out);
+    }
+  }
+
   public static GeneratorLauncher parseCommandLine(String[] args) {
 
     GeneratorLauncher launcherOptions = new GeneratorLauncher();
@@ -76,28 +93,11 @@ public class GeneratorLauncher {
         options, "\nEx. generator requests.log");
     System.exit(1);
   }
-
   public int requests;
   public String fileName;
   public long averageRequestInterval = 1000;
   public int averageBytes = 256;
   public double rateOf200Ok = 0.9;
+
   public int numberOfRemoteHosts = 100;
-
-  public static void main(String[] args) throws FileNotFoundException {
-
-    GeneratorLauncher options = GeneratorLauncher.parseCommandLine(args);
-
-    TestLogsGenerator generator = new TestLogsGenerator(System.currentTimeMillis(),
-        options.averageRequestInterval, options.averageBytes, options.rateOf200Ok,
-        options.numberOfRemoteHosts);
-
-    if (options.fileName != null) {
-      File file = new File(options.fileName);
-      PrintStream filePrinter = new PrintStream(file);
-      generator.generate(options.requests, filePrinter);
-    } else {
-      generator.generate(options.requests, System.out);
-    }
-  }
 }

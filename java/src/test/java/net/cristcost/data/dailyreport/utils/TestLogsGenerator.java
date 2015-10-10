@@ -1,5 +1,7 @@
 package net.cristcost.data.dailyreport.utils;
 
+import net.cristcost.data.dailyreport.LogParser;
+
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -7,8 +9,6 @@ import java.util.Date;
 import java.util.Random;
 
 public class TestLogsGenerator {
-
-  private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
   private static String[] statusCodes = new String[] { "200 OK", "201 Created", "202 Accepted",
       "203 Non-Authoritative Information", "204 No Content", "205 Reset Content",
@@ -31,7 +31,7 @@ public class TestLogsGenerator {
 
   private long lastEntryTime;
 
-  private final DateFormat format = new SimpleDateFormat(ISO_8601_FORMAT);
+  private final DateFormat format = new SimpleDateFormat(LogParser.ISO_8601_FORMAT);
 
   private final long averageRequestInterval;
 
