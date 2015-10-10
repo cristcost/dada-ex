@@ -1,15 +1,12 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.data.dailyreport.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-public class TestInputGenerator {
+public class TestLogsGenerator {
 
   private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
@@ -26,23 +23,6 @@ public class TestInputGenerator {
       "500 Internal Server Error", "501 Not Implemented", "502 Bad Gateway",
       "503 Service Unavailable", "504 Gateway Timeout", "505 HTTP Version Not Supported" };
 
-  public static void main(String[] args) throws FileNotFoundException {
-
-    GenerationOptions options = GenerationOptions.parseCommandLine(args);
-
-    TestInputGenerator generator = new TestInputGenerator(System.currentTimeMillis(),
-        options.averageRequestInterval, options.averageBytes, options.rateOf200Ok,
-        options.numberOfRemoteHosts);
-
-    if (options.fileName != null) {
-      File file = new File(options.fileName);
-      PrintStream filePrinter = new PrintStream(file);
-      generator.generate(options.requests, filePrinter);
-    } else {
-      generator.generate(options.requests, System.out);
-    }
-  }
-
   private final int averageBytes;
   private final double rateOf200Ok;
   private final String[] remoteHosts;
@@ -55,7 +35,7 @@ public class TestInputGenerator {
 
   private final long averageRequestInterval;
 
-  private TestInputGenerator(long initialTime, long averageRequestInterval, int averageBytes,
+  public TestLogsGenerator(long initialTime, long averageRequestInterval, int averageBytes,
       double rateOf200Ok, int numberOfRemoteHosts) {
     this.random = new Random();
 

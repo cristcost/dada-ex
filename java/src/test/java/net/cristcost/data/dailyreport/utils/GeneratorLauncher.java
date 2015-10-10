@@ -1,4 +1,4 @@
-package net.cristcost.data.dailyreport;
+package net.cristcost.data.dailyreport.utils;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -7,11 +7,15 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.MissingOptionException;
 import org.apache.commons.cli.Options;
 
-public class GenerationOptions {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
-  public static GenerationOptions parseCommandLine(String[] args) {
+public class GeneratorLauncher {
 
-    GenerationOptions launcherOptions = new GenerationOptions();
+  public static GeneratorLauncher parseCommandLine(String[] args) {
+
+    GeneratorLauncher launcherOptions = new GeneratorLauncher();
 
     Options options = new Options();
     options.addOption("I", "reqInterval", true,
@@ -79,4 +83,21 @@ public class GenerationOptions {
   public int averageBytes = 256;
   public double rateOf200Ok = 0.9;
   public int numberOfRemoteHosts = 100;
+
+  public static void main(String[] args) throws FileNotFoundException {
+
+    GeneratorLauncher options = GeneratorLauncher.parseCommandLine(args);
+
+    TestLogsGenerator generator = new TestLogsGenerator(System.currentTimeMillis(),
+        options.averageRequestInterval, options.averageBytes, options.rateOf200Ok,
+        options.numberOfRemoteHosts);
+
+    if (options.fileName != null) {
+      File file = new File(options.fileName);
+      PrintStream filePrinter = new PrintStream(file);
+      generator.generate(options.requests, filePrinter);
+    } else {
+      generator.generate(options.requests, System.out);
+    }
+  }
 }
