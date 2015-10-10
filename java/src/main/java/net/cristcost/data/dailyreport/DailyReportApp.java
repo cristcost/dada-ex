@@ -17,18 +17,44 @@ package net.cristcost.data.dailyreport;
 
 import net.cristcost.data.dailyreport.DailyReport.ReportEntry;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 public class DailyReportApp {
 
   public static void main(String[] args) throws FileNotFoundException, IOException {
 
-    // String fileName = args[0];
-    String fileName = "target/requests.log";
+    if (args.length < 1) {
+      dumpUsage(null);
+    }
+    if (!validateInputFile(args[0])) {
+      dumpUsage("Input file does not exist");
+    }
 
-    LogParser parser = new LogParser(fileName);
+    makeReport(args[0], args[1]);
+  }
+
+  private static boolean validateInputFile(String fileName) {
+    File file = new File(fileName);
+    return file.exists();
+  }
+
+  private static void dumpUsage(String error) {
+    if (error != null) {
+      System.out.println("Error: " + error);
+      System.out.println();
+    }
+    System.out.println("Usage:   dailyreport.sh inputfile [outputfile]");
+    System.out.println("Example: dailyreport.sh  /logfiles/requests.log /reports/ipaddr.csv");
+    System.exit(0);
+  }
+
+  private static void makeReport(String inputFileName, String outputFileName)
+      throws FileNotFoundException, IOException {
+    LogParser parser = new LogParser(inputFileName);
     parser.parse();
 
     DailyReport report = new DailyReport();
@@ -36,8 +62,14 @@ public class DailyReportApp {
 
     List<ReportEntry> entries = report.getEntries();
 
-    CsvDailyReport csv = new CsvDailyReport(System.out);
+    CsvDailyReport csv;
+    if (outputFileName == null) {
+      csv = new CsvDailyReport(System.out);
+    } else {
+      File file = new File(outputFileName);
+      PrintStream filePrinter = new PrintStream(file);
+      csv = new CsvDailyReport(filePrinter);
+    }
     csv.addEntries(entries);
-    csv.close();
   }
 }

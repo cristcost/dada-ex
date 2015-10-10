@@ -21,9 +21,6 @@ public class CsvDailyReport {
     }
   }
 
-  public void close() {
-  }
-
   private String formatCsv(ReportEntry reportEntry) {
     StringBuilder sb = new StringBuilder();
     sb.append(reportEntry.getHostAddress());
