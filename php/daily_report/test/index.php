@@ -4,5 +4,7 @@
 
 	require("../daily_report.php");
 
-	reportFromFile("test_requests.log");
+	if(!reportFromFile("test_requests.log")) {
+		echo "Error opening file!";
+	}
 ?>

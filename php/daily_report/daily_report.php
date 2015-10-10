@@ -1,6 +1,6 @@
 <?php 
 
-function reportFromFile($fileName) {
+function reportFromFile($fileName,$outputFileName) {
 	$report = array();
 	$total_bytes=0;
 	$total_requests=0;
@@ -34,15 +34,31 @@ function reportFromFile($fileName) {
 		    return ($a["requests"] > $b["requests"]) ? -1 : 1;
 		};
 		
+		$output = function($string) {
+			echo $string;
+		};
+		if($outputFileName != null) {
+			$f = fopen($outputFileName, "w");
+			$output = function($string) use ($f) {
+				fwrite($f, $string);
+			};
+		}		
+
 		uasort($report, $callback);
-		echo "IP Address;Requests;Total Requests %;Bytes;Total Bytes %\n";
+		$output("IP Address;Requests;Total Requests %;Bytes;Total Bytes %\n");
 		foreach ($report as $ip => $data) {
-			echo $ip.";"
+			$output($ip.";"
 				.$data["requests"].";".number_format($data["requests"] * 100.0 / $total_requests,2)."%;"
-				.$data["bytes"].";".number_format($data["bytes"] * 100.0 / $total_bytes,2)."%\n";
+				.$data["bytes"].";".number_format($data["bytes"] * 100.0 / $total_bytes,2)."%\n");
 		}
+		
+		if($f) {
+			fclose($f); 
+		}
+
+		return true;
 	} else {
-	    echo "Error opening file!";
+	    return false;
 	} 
 }
 ?>
