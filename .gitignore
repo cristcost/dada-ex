@@ -1,0 +1,17 @@
+/webapp
+/src/main/webapp/bower_components/
+
+.DS_Store
+
+target/
+.settings/
+
+.classpath
+.factorypath
+.project
+
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
