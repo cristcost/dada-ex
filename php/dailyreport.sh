@@ -1,3 +1,3 @@
 #!/bin/bash
 
-php daily_report/daily_report_cmd.php $1 $2
+php daily_report/cmd.php $1 $2

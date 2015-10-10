@@ -1,5 +1,5 @@
 <?php 
-	require("daily_report.php");
+	require("dailyreport.php");
 
 	if(count($argv) < 2) {
     	echo "Usage:   dailyreport.sh inputfile [outputfile]\n";

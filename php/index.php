@@ -16,7 +16,7 @@
 				<h1>Sandbox</h1>
 				<h2>PHP exercises</h2>
 				<p>
-					Go to <a href="/daily_report/">Daily Report</a> exercise
+					Go to <a href="/dailyreport/">Daily Report</a> exercise
 				</p>
 				<p>
 					Go to <a href="/multiply/">Multiply</a> exercise
