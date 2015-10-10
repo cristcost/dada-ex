@@ -1,9 +1,15 @@
 
 .DS_Store
 
+# ignores for make project files
 lib/
 bin/
 CMakeFiles/
 CMakeCache.txt
 Makefile
 cmake_install.cmake
+
+# ignores for Xcode project files
+CMakeScripts/
+DadaSandbox.xcodeproj/
+DadaSandbox.build/
