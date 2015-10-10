@@ -28,7 +28,8 @@ public class ArrayMath {
     boolean carry = false;
     int[] ret = new int[Math.max(a.length, b.length) + 1];
     for (int i = 0; i < ret.length; i++) {
-      int partialSum = valueOrZero(a, i) + valueOrZero(b, i) + (carry ? 1 : 0);
+      int partialSum =
+          valueAtArrayIndexOrZero(a, i) + valueAtArrayIndexOrZero(b, i) + (carry ? 1 : 0);
       if (partialSum >= 10) {
         carry = true;
         partialSum -= 10;
@@ -49,7 +50,7 @@ public class ArrayMath {
     return new int[] { 0 }; // if zero, return array with one zero
   }
 
-  private static int valueOrZero(int[] a, int i) {
+  private static int valueAtArrayIndexOrZero(int[] a, int i) {
     if (i < a.length) {
       return a[i];
     } else
