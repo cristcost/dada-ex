@@ -38,8 +38,8 @@ function reportFromFile($fileName) {
 		echo "IP Address;Requests;Total Requests %;Bytes;Total Bytes %\n";
 		foreach ($report as $ip => $data) {
 			echo $ip.";"
-				.$data["requests"].";".($data["requests"] * 100.0 / $total_requests).";"
-				.$data["bytes"].";".($data["bytes"] * 100.0 / $total_bytes)."\n";
+				.$data["requests"].";".number_format($data["requests"] * 100.0 / $total_requests,2)."%;"
+				.$data["bytes"].";".number_format($data["bytes"] * 100.0 / $total_bytes,2)."%\n";
 		}
 	} else {
 	    echo "Error opening file!";
