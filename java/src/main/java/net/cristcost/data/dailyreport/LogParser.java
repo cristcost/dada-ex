@@ -41,6 +41,7 @@ public class LogParser {
   private void addRequest(Request request) {
     this.requests.add(request);
   }
+
   private Request createRequest(String timestampAsString, String bytesAsString,
       String statusCode, String host) {
     Date timeStamp = parseTimeStamp(timestampAsString);

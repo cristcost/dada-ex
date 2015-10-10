@@ -93,6 +93,7 @@ public class GeneratorLauncher {
         options, "\nEx. generator requests.log");
     System.exit(1);
   }
+
   public int requests;
   public String fileName;
   public long averageRequestInterval = 1000;

@@ -13,13 +13,19 @@ public class DailyReport {
   public class ReportEntry {
 
     private final String hostAddress;
-    int requests = 0;
-    int bytes = 0;
+    private int requests = 0;
+    private int bytes = 0;
 
     public ReportEntry(String hostAddress, int bytes, int requests) {
       this.hostAddress = hostAddress;
       this.requests = requests;
       this.bytes = bytes;
+    }
+
+    @Override
+    public String toString() {
+      return hostAddress + "(" + requests + ", bytes="
+          + bytes + "B)";
     }
 
     public int getBytes() {
@@ -50,8 +56,9 @@ public class DailyReport {
 
   private Map<String, ReportEntry> entriesByIp = new HashMap<>();
 
-  public int totalRequests = 0;
-  public int totalBytes = 0;
+  private int totalRequests = 0;
+
+  private int totalBytes = 0;
 
   public List<ReportEntry> getEntries() {
 
@@ -67,11 +74,23 @@ public class DailyReport {
     return ret;
   }
 
+  public int getTotalBytes() {
+    return totalBytes;
+  }
+
+  public int getTotalRequests() {
+    return totalRequests;
+  }
+
+  public void log(Request request) {
+    if (request.getStatusCode().equals("200 OK")) {
+      logRequest(request.getHost(), request.getBytes());
+    }
+  }
+
   public void logAll(Collection<Request> requests) {
     for (Request request : requests) {
-      if (request.getStatusCode().equals("200 OK")) {
-        logRequest(request.getHost(), request.getBytes());
-      }
+      log(request);
     }
   }
 
