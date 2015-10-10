@@ -36,7 +36,7 @@ public class CsvDailyReport {
   }
 
   private void printHeader(PrintStream out) {
-    out.println("IP Address,Number of Requests,Percentage,Total Bytes, Percentage");
+    out.println("IP Address;Requests;Total Requests %;Bytes;Total Bytes %");
   }
 
 }
