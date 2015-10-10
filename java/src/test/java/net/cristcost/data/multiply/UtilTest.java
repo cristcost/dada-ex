@@ -9,28 +9,6 @@ import java.util.Arrays;
 public class UtilTest {
 
   @Test
-  public void testValidateString() {
-    assertTrue(Util.validateString("123"));
-    assertTrue(Util.validateString(""));
-    assertTrue(Util.validateString("000"));
-
-    assertFalse(Util.validateString("-123")); // signed integers unsupported
-
-    assertFalse(Util.validateString(" 123"));
-    assertFalse(Util.validateString("centoventitre"));
-  }
-
-  @Test
-  public void testValidateArray() {
-    assertTrue(Util.validateArray(new int[] { 3, 2, 1 }));
-    assertTrue(Util.validateArray(new int[] {}));
-    assertTrue(Util.validateArray(new int[] { 0, 0, 0 }));
-
-    assertFalse(Util.validateArray(new int[] { 3, 2, -1 }));
-    assertFalse(Util.validateArray(new int[] { 123 }));
-  }
-
-  @Test
   public void testArrayToString() {
     assertEquals("123", Util.arrayToString(new int[] { 3, 2, 1 }));
     assertEquals("", Util.arrayToString(new int[] {}));
@@ -63,5 +41,27 @@ public class UtilTest {
     } catch (NumberFormatException e) {
     }
 
+  }
+
+  @Test
+  public void testValidateArray() {
+    assertTrue(Util.validateArray(new int[] { 3, 2, 1 }));
+    assertTrue(Util.validateArray(new int[] {}));
+    assertTrue(Util.validateArray(new int[] { 0, 0, 0 }));
+
+    assertFalse(Util.validateArray(new int[] { 3, 2, -1 }));
+    assertFalse(Util.validateArray(new int[] { 123 }));
+  }
+
+  @Test
+  public void testValidateString() {
+    assertTrue(Util.validateString("123"));
+    assertTrue(Util.validateString(""));
+    assertTrue(Util.validateString("000"));
+
+    assertFalse(Util.validateString("-123")); // signed integers unsupported
+
+    assertFalse(Util.validateString(" 123"));
+    assertFalse(Util.validateString("centoventitre"));
   }
 }
