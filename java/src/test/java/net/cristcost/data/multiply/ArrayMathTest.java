@@ -8,6 +8,12 @@ public class ArrayMathTest {
 
   @Test
   public void testArraySum() {
+    assertEquals("5", sumWithStrings("5", "0"));
+    assertEquals("15", sumWithStrings("15", "0"));
+    assertEquals("5", sumWithStrings("0", "5"));
+    assertEquals("15", sumWithStrings("0", "15"));
+    
+    
     assertEquals("160", sumWithStrings("130", "030"));
     assertEquals("100", sumWithStrings("", "100"));
     assertEquals("0", sumWithStrings("", ""));
@@ -29,6 +35,9 @@ public class ArrayMathTest {
     assertEquals("0", multiplyWithStrings("0", "10"));
     assertEquals("0", multiplyWithStrings("", "10"));
 
+    // generic use cases
+    assertEquals("5", multiplyWithStrings("5", "1"));
+    
     // bigger operands
     assertEquals("65536", multiplyWithStrings("256", "256"));
 

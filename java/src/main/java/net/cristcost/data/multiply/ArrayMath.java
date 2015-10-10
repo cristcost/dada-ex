@@ -42,7 +42,7 @@ public class ArrayMath {
   }
 
   private static int[] stripZeros(int[] array) {
-    for (int i = array.length - 1; i > 0; i--) {
+    for (int i = array.length - 1; i >= 0; i--) {
       if (array[i] != 0) {
         return Arrays.copyOfRange(array, 0, i + 1);
       }
