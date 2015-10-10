@@ -18,6 +18,31 @@ package net.cristcost.data.multiply;
 public class MultiplyApp {
 
   public static void main(String[] args) {
-    System.out.println("Sandbox project for Multiply exercise");
+    if (args.length != 2) {
+      dumpUsage(null);
+    }
+    if (!Util.validateString(args[0])) {
+      dumpUsage("Invalid operand 1");
+    }
+    if (!Util.validateString(args[1])) {
+      dumpUsage("Invalid operand 2");
+    }
+
+    int[] a = Util.stringToArray(args[0]);
+    int[] b = Util.stringToArray(args[1]);
+
+    int[] result = ArrayMath.multiply(a, b);
+
+    System.out.println(Util.arrayToString(result));
+  }
+
+  private static void dumpUsage(String error) {
+    if (error != null) {
+      System.out.println("Error: " + error);
+      System.out.println();
+    }
+    System.out.println("Usage:   multiply operand1 operand2");
+    System.out.println("Example: multiply 123 321");
+    System.exit(0);
   }
 }
