@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  Sandbox
+//  DadaSandbox
 //
 //  Created by Cristiano Costantini on 10/10/15.
 //  Copyright (c) 2015 cristcost.net. All rights reserved.
@@ -10,12 +10,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+
+#include "utils.hpp"
+#include "arraymath.hpp"
+
 
 using namespace std;
-
-bool validateString(const char* string) {
-    return false;
-}
 
 int main(int argc, const char * argv[]) {
     
@@ -24,16 +25,25 @@ int main(int argc, const char * argv[]) {
         cout << "Example: multiply 123 321" << endl;
         exit(0);
     }
-    if (!validateString(argv[1])) {
+    
+    string arg1 = string(argv[1]);
+    string arg2 = string(argv[2]);
+    
+    if (!validateString(arg1)) {
         cout << "Invalid operand 1" << endl;
         exit(0);
     }
-    if (!validateString(argv[2])) {
+    if (!validateString(arg2)) {
         cout << "Invalid operand 2" << endl;
         exit(0);
     }
     
-    cout << "Sandbox project for Multiply exercise" << endl;
+    vector<int> a = stringToArray(arg1);
+    vector<int> b = stringToArray(arg2);
+    
+    vector<int> result = multiply(a, b);
+    
+    cout << arrayToString(result) << endl;
     
     return 0;
 }
