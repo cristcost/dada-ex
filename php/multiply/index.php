@@ -52,13 +52,13 @@
 							<div class="row">
 								<span class="col-sm-2 control-label"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
 							</div>
-							
+
 							<div class="row">
 								<label for="secondOperand" class="col-sm-2 control-label">2st operand:</label>
 								<input type="number" id="secondOperand" class="col-sm-9">
 							</div>
 							<div class="row">
-								<button type="submit" id="compute" class="col-sm-offset-2 btn btn-primary">Compute result</button>
+								<button type="button" id="compute" class="col-sm-offset-2 btn btn-primary">Compute result</button>
 							</div>
 						</div>
 						<div class="form-group">
@@ -72,5 +72,33 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 100000000000000000000000000000000000000000000000000 -->
+
+	<script type="text/javascript">
+	$('#compute').click(function(event) {
+		var op1 = $('#firstOperand').val();
+		var op2 = $('#secondOperand').val();
+		$.ajax({
+				url: 'service.php',
+				dataType: 'json',
+				method: 'POST',
+				data: {
+					"op1":op1,
+					"op2":op2
+				},
+				success: function(response) {
+					if (response.error) {
+						alert("respose error");
+					} else {
+						$('#result').val(response.result);
+					}
+				},
+				error: function() {
+					alert("error");
+				}
+			});
+	});
+	</script>
 </body>
 </html>
