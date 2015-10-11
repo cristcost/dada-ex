@@ -64,7 +64,6 @@ function valueAtArrayIndexOrZero($a, $i) {
 
 function multiply($a, $b) {
 	$ret = array(0);
-    // multiply a foreach item in b
     for ($i = 0; $i < count($b); $i++) {
 		for ($j = 0; $j < $b[$i]; $j++) {
 			$ret = sum($ret, $a);
@@ -78,7 +77,6 @@ function shift($array) {
 	for ($i = 0; $i < count($array); $i++) {
 		$ret[$i+1] = $array[$i];
 	}
-	// print_r(array("in"=>$array,"out"=>$ret));
 	return $ret;
 }
 

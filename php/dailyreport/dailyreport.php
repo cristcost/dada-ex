@@ -1,6 +1,6 @@
 <?php 
 
-function reportFromFile($fileName,$outputFileName) {
+function reportFromFile($fileName,$outputFileName = NULL) {
 	$report = array();
 	$total_bytes=0;
 	$total_requests=0;
