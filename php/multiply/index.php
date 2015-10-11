@@ -28,6 +28,9 @@
 				<li><a href="../dailyreport/">Daily Report</a></li>
 				<li class="active"><a href="#">Multiply</a></li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a id="googol" href="#100000000000000000000000000000000000000000000000000">#</a></li>
+			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
 
@@ -35,7 +38,7 @@
 		<div class="page-header">
 			<h1>Multiply <small>Multiply big numbers</small></h1>
 		</div>
-
+		<div id="errors"></div>
 		<div>
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -58,13 +61,13 @@
 								<input type="number" id="secondOperand" class="col-sm-9">
 							</div>
 							<div class="row">
-								<button type="button" id="compute" class="col-sm-offset-2 btn btn-primary">Compute result</button>
+								<button type="button" id="compute" class="col-sm-offset-2 col-sm-2 btn btn-primary">Compute result</button>
 							</div>
 						</div>
 						<div class="form-group">
 							<legend>Result:</legend>
 							<div class="row">
-								<input type="number" id="result" class="col-sm-offset-2 col-sm-9" readonly>
+								<input type="text" id="result" class="col-sm-offset-2 col-sm-9" readonly>
 							</div>
 						</div>
 					</form>
@@ -72,10 +75,24 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 100000000000000000000000000000000000000000000000000 -->
 
 	<script type="text/javascript">
+
+	$('#googol').click(function(event) {
+		$('#firstOperand').val("100000000000000000000000000000000000000000000000000");
+		$('#secondOperand').val("100000000000000000000000000000000000000000000000000");
+	});
+
+	var appendError = function(msg) {
+		var errorDiv = $('<div class="alert alert-danger">')
+			.append($('<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'))
+			.append($('<strong>Error: </strong>'))
+			.append($('<test>'+msg+'</test>'));
+		$("#errors").append(errorDiv);
+	}
+
 	$('#compute').click(function(event) {
 		var op1 = $('#firstOperand').val();
 		var op2 = $('#secondOperand').val();
@@ -89,13 +106,28 @@
 				},
 				success: function(response) {
 					if (response.error) {
-						alert("respose error");
+						for (var i = response.error.length - 1; i >= 0; i--) {
+							appendError(response.error[i]);
+						};
 					} else {
+						if(response.result == '10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000') {
+							var outputElement = $('#result');
+							outputElement.popover({
+								content:'This is 1 googol!',
+								trigger:'manual',
+								placement:'top',
+								title:'WoW!'
+							});
+							outputElement.popover('show');
+							setTimeout(function(){ outputElement.popover('hide');; }, 3000);
+							
+						} 
 						$('#result').val(response.result);
+						
 					}
 				},
 				error: function() {
-					alert("error");
+					appendError("Service request error");
 				}
 			});
 	});
