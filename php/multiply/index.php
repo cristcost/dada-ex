@@ -32,13 +32,43 @@
 	</nav>
 
 	<div class="container">
-		<div class="jumbotron">
-			<div class="container">
-				<h1>Multiply</h1>
-				<h2>Sandbox project for Multiply exercise</h2>
-				<p>
-					Go to <a href="/">back</a>
-				</p>
+		<div class="page-header">
+			<h1>Multiply <small>Multiply big numbers</small></h1>
+		</div>
+
+		<div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<legend>Input Operands:</legend>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<label for="firstOperand" class="col-sm-2 control-label">1st operand:</label>
+								<input type="number" id="firstOperand" class="col-sm-9">
+							</div>
+
+							<div class="row">
+								<span class="col-sm-2 control-label"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span>
+							</div>
+							
+							<div class="row">
+								<label for="secondOperand" class="col-sm-2 control-label">2st operand:</label>
+								<input type="number" id="secondOperand" class="col-sm-9">
+							</div>
+							<div class="row">
+								<button type="submit" id="compute" class="col-sm-offset-2 btn btn-primary">Compute result</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<legend>Result:</legend>
+							<div class="row">
+								<input type="number" id="result" class="col-sm-offset-2 col-sm-9" readonly>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
